@@ -20,6 +20,7 @@ enum custom_keycodes {
   ST_MACRO_12,
   ST_MACRO_13,
   ST_MACRO_14,
+  OSM_LGUI_L0,
 };
 
 
@@ -42,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [2] = LAYOUT_voyager(
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
     KC_TRANSPARENT, KC_TAB,         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_PAGE_UP,     KC_DELETE,      KC_UP,          KC_BSPC,        KC_TRANSPARENT, KC_TRANSPARENT, 
-    KC_TRANSPARENT, KC_ESCAPE,      KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_PGDN,        KC_LEFT,        KC_DOWN,        KC_RIGHT,       KC_ENTER,       KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_ESCAPE,      KC_TRANSPARENT, KC_TRANSPARENT, OSM_LGUI_L0, KC_TRANSPARENT,                                 KC_PGDN,        KC_LEFT,        KC_DOWN,        KC_RIGHT,       KC_ENTER,       KC_TRANSPARENT, 
     KC_TRANSPARENT, KC_TRANSPARENT, OSL(3),         OSL(4),         OSL(5),         KC_CAPS,                                        KC_ENTER,       KC_HOME,        OSL(4),         KC_END,         KC_TRANSPARENT, KC_TRANSPARENT, 
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT
   ),
@@ -207,6 +208,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case ST_MACRO_14:
     if (record->event.pressed) {
       SEND_STRING(SS_LALT(SS_TAP(X_KP_2) SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_6) ));
+    }
+    break;
+
+    case OSM_LGUI_L0:
+    if (record->event.pressed) {
+      add_oneshot_mods(MOD_BIT(KC_LGUI));
+    }
+    if (!record->event.pressed) {
+      layer_move(0);
     }
     break;
 
